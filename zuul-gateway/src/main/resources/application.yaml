@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: zuul-gateway
+  profiles:
+    active: dev
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: ALWAYS
+  cloud:
+    consul:
+      host: 192.168.31.188
+      port: 8500
+      discovery:
+        health-check-path: /actuator/health
+        health-check-interval: 15s
+        health-check-critical-timeout: 60m
+        tags:
+        - dev
+        prefer-ip-address: true
+        service-name: ${spring.application.name}
+
+server:
+  port: 8082
+
+zuul:
+  strip-prefix: true #转发路径截断匹配前缀
+#  prefix: "/api"
+  add-proxy-headers: false
+  set-content-length: true
+  semaphore:
+    max-semaphores: 600
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 120000
+ribbon:
+  ReadTimeout: 240000
+  ConnectTimeout: 2000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  eager-load:
+    enabled: true
+    clients: micro-service

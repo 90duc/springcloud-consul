@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: micro-service
+  profiles:
+    active: dev
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: ALWAYS
+  cloud:
+    consul:
+      host: 192.168.31.188
+      port: 8500
+      discovery:
+        health-check-path: /actuator/health
+        health-check-interval: 15s
+        health-check-critical-timeout: 60m
+        tags:
+        - dev
+        prefer-ip-address: true
+        service-name: ${spring.application.name}
+
+server:
+  port: 8081
