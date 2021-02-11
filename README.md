@@ -1,5 +1,6 @@
 # springcloud-consul
 本项目是搭建基于consul注册中心的springcloud，使用zuul网关和gateway网关
+
 1、项目结构
 micro-service  服务提供者
 zuul-gateway  zuul网关
